@@ -37,7 +37,8 @@ class App {
       .connect("mongodb://localhost/personal-traininig-management", {
         useNewUrlParser: true,
         useCreateIndex: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
       })
       .then(db => console.log("DB is connected"))
       .catch(err => console.log(err, "err"));
