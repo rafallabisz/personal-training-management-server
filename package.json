@@ -1,0 +1,26 @@
+{
+  "name": "personal-training-management-sever",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node ./src/server.ts"
+  },
+  "author": "Rafal Labisz",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "envalid": "^5.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/mongoose": "^5.5.22",
+    "@types/node": "^12.11.1",
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "description": ""
+}
