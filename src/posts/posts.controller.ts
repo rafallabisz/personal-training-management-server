@@ -1,7 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import Post from "./post.interface";
 import Controller from "../interfaces/controller.interface";
 import postModel from "./posts.model";
+import PostNotFoundException from "../exceptions/PostNotFoundException";
+import { runInNewContext } from "vm";
 
 class PostsController implements Controller {
   public path = "/posts";
@@ -25,17 +27,25 @@ class PostsController implements Controller {
     res.json(posts);
   };
 
-  private getPostById = async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const post = await this.post.findById(id);
-    res.json(post);
+  private getPostById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id;
+      const post = await this.post.findById(id);
+      res.json(post);
+    } catch (err) {
+      next(new PostNotFoundException(err.value));
+    }
   };
 
-  private modifyPost = async (req: Request, res: Response): Promise<void> => {
-    const id = req.params.id;
-    const postData: Post = req.body;
-    const modifyPost = await this.post.findByIdAndUpdate(id, postData, { new: true });
-    res.json(modifyPost);
+  private modifyPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const id = req.params.id;
+      const postData: Post = req.body;
+      const post = await this.post.findByIdAndUpdate(id, postData, { new: true });
+      res.json(post);
+    } catch (err) {
+      next(new PostNotFoundException(err.value));
+    }
   };
 
   private createAPost = async (req: Request, res: Response): Promise<void> => {
@@ -45,13 +55,14 @@ class PostsController implements Controller {
     res.json({ data: createdPost });
   };
 
-  private deletePost = async (req: Request, res: Response) => {
+  private deletePost = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id;
       await this.post.findByIdAndDelete(id);
       res.status(200).json(`Post deleted successfully! `);
-    } catch {
-      res.status(404).json(`An error occurred!`);
+    } catch (err) {
+      // res.status(404).json(err);
+      next(new PostNotFoundException(err.value));
     }
   };
 }
