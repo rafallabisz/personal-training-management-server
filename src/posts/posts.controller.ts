@@ -3,7 +3,8 @@ import Post from "./post.interface";
 import Controller from "../interfaces/controller.interface";
 import postModel from "./posts.model";
 import PostNotFoundException from "../exceptions/PostNotFoundException";
-import { runInNewContext } from "vm";
+import authMiddleware from "../middleware/auth.middleware";
+import RequestWithUser from "interfaces/requestWithUser.interface";
 
 class PostsController implements Controller {
   public path = "/posts";
@@ -17,6 +18,11 @@ class PostsController implements Controller {
   private initializeRoutes() {
     this.router.get(this.path, this.getAllPosts);
     this.router.get(`${this.path}/:id`, this.getPostById);
+    // this.router;
+    // .all(`${this.path}/*`, authMiddleware)
+    // .patch(`${this.path}/:id`, this.modifyPost)
+    // .delete(`${this.path}/:id`, this.deletePost)
+    // .post((this.path, this.createAPost));
     this.router.put(`${this.path}/:id`, this.modifyPost);
     this.router.post(this.path, this.createAPost);
     this.router.delete(`${this.path}/:id`, this.deletePost);
@@ -27,7 +33,7 @@ class PostsController implements Controller {
     res.json(posts);
   };
 
-  private getPostById = async (req: Request, res: Response, next: NextFunction) => {
+  private getPostById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const id = req.params.id;
       const post = await this.post.findById(id);
@@ -51,11 +57,15 @@ class PostsController implements Controller {
   private createAPost = async (req: Request, res: Response): Promise<void> => {
     const postData: Post = req.body;
     const createdPost = new this.post(postData);
-    await createdPost.save();
-    res.json({ data: createdPost });
+    // const createdPost = new this.post({
+    //   ...postData,
+    //   authorId: req.user._id
+    // });
+    const post = await createdPost.save();
+    res.json({ post });
   };
 
-  private deletePost = async (req: Request, res: Response, next: NextFunction) => {
+  private deletePost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const id = req.params.id;
       await this.post.findByIdAndDelete(id);
