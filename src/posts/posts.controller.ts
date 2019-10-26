@@ -3,9 +3,6 @@ import Post from "./post.interface";
 import Controller from "../interfaces/controller.interface";
 import postModel from "./posts.model";
 import PostNotFoundException from "../exceptions/PostNotFoundException";
-import authMiddleware from "../middleware/auth.middleware";
-import RequestWithUser from "interfaces/requestWithUser.interface";
-
 class PostsController implements Controller {
   public path = "/posts";
   public router = express.Router();
@@ -18,11 +15,6 @@ class PostsController implements Controller {
   private initializeRoutes() {
     this.router.get(this.path, this.getAllPosts);
     this.router.get(`${this.path}/:id`, this.getPostById);
-    // this.router;
-    // .all(`${this.path}/*`, authMiddleware)
-    // .patch(`${this.path}/:id`, this.modifyPost)
-    // .delete(`${this.path}/:id`, this.deletePost)
-    // .post((this.path, this.createAPost));
     this.router.put(`${this.path}/:id`, this.modifyPost);
     this.router.post(this.path, this.createAPost);
     this.router.delete(`${this.path}/:id`, this.deletePost);
