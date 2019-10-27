@@ -49,10 +49,6 @@ class PostsController implements Controller {
   private createAPost = async (req: Request, res: Response): Promise<void> => {
     const postData: Post = req.body;
     const createdPost = new this.post(postData);
-    // const createdPost = new this.post({
-    //   ...postData,
-    //   authorId: req.user._id
-    // });
     const post = await createdPost.save();
     res.json({ post });
   };
@@ -63,7 +59,6 @@ class PostsController implements Controller {
       await this.post.findByIdAndDelete(id);
       res.status(200).json(`Post deleted successfully! `);
     } catch (err) {
-      // res.status(404).json(err);
       next(new PostNotFoundException(err.value));
     }
   };
