@@ -16,6 +16,7 @@ class AuthenticationController implements Controller {
     this.router.post(`${this.path}/register`, this.registration);
     this.router.post(`${this.path}/login`, this.loggingIn);
     this.router.post(`${this.path}/logout`, this.loggingOut);
+    this.router.delete(`${this.path}/:id`, this.deleteAccount);
   }
 
   private registration = async (req: Request, res: Response, next: NextFunction) => {
@@ -44,6 +45,16 @@ class AuthenticationController implements Controller {
     const cookie = this.authenticationService.loggingOut();
     res.setHeader("Set-Cookie", [cookie]);
     res.sendStatus(200);
+  };
+
+  private deleteAccount = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id;
+      await this.authenticationService.deleteAccount(id);
+      res.sendStatus(200).json(`Account deleted successfully!`);
+    } catch (err) {
+      next(err);
+    }
   };
 }
 

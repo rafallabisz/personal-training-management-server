@@ -8,6 +8,7 @@ import TokenData from "../interfaces/tokenData.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken.interface";
 import LogIn from "../user/logIn.interface";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
+import UserNotFoundException from "../exceptions/UserNotFoundException";
 
 class AuthenticationService {
   public user = userModel;
@@ -69,6 +70,14 @@ class AuthenticationService {
 
   public createCookie = (tokenData: TokenData) => {
     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
+  };
+
+  public deleteAccount = async (id: string) => {
+    try {
+      await this.user.findByIdAndDelete(id).exec();
+    } catch (err) {
+      throw new UserNotFoundException(err.value);
+    }
   };
 }
 
