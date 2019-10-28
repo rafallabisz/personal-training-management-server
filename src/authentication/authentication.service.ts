@@ -1,12 +1,11 @@
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import userModel from "../user/user.model";
-import CreateUser from "../user/createUser.interface";
 import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatEmailAlreadyExistsException";
-import User from "../user/user.interface";
+import { User } from "../user/user.interface";
 import TokenData from "../interfaces/tokenData.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken.interface";
-import LogIn from "../user/logIn.interface";
+import { CreateUser, LogIn } from "../user/user.interface";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 

@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import Controller from "../interfaces/controller.interface";
-import CreateUser from "user/createUser.interface";
-import LogIn from "user/logIn.interface";
+import { CreateUser, LogIn } from "../user/user.interface";
 import AuthenticationService from "./authentication.service";
 
 class AuthenticationController implements Controller {
