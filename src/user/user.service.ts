@@ -1,5 +1,5 @@
 import userModel from "./user.model";
-import { User, UpdateUser } from "./user.interface";
+import { User } from "./user.interface";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 
 class UserService {
@@ -10,7 +10,7 @@ class UserService {
     return users;
   };
 
-  public updateUser = async (id: string, userData: UpdateUser) => {
+  public updateUser = async (id: string, userData: User) => {
     try {
       const user = await this.user.findByIdAndUpdate(id, userData, { new: true });
       return user;

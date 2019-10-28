@@ -19,10 +19,3 @@ export interface LogIn {
   email: string;
   password: string;
 }
-
-export interface UpdateUser {
-  data: {
-    age: number;
-    city: string;
-  };
-}

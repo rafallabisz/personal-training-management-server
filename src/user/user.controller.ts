@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from "express";
 import Controller from "../interfaces/controller.interface";
 import UserService from "./user.service";
-import { User, UpdateUser } from "./user.interface";
+import { User } from "./user.interface";
 
 class UserController implements Controller {
   public path = "/user";
@@ -29,7 +29,7 @@ class UserController implements Controller {
   private updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id;
-      const userData: UpdateUser = req.body;
+      const userData: User = req.body;
       const user = await this.userService.updateUser(id, userData);
       res.json(user);
     } catch (err) {
