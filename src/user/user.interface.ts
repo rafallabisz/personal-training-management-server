@@ -3,6 +3,10 @@ export interface User {
   name: string;
   email: string;
   password: string;
+  data?: {
+    age: number;
+    city: string;
+  };
 }
 
 export interface CreateUser {
@@ -14,4 +18,11 @@ export interface CreateUser {
 export interface LogIn {
   email: string;
   password: string;
+}
+
+export interface UpdateUser {
+  data: {
+    age: number;
+    city: string;
+  };
 }
