@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
 import Post from "./post.interface";
 import Controller from "../interfaces/controller.interface";
-import postModel from "./posts.model";
+import postModel from "./post.model";
 import PostNotFoundException from "../exceptions/PostNotFoundException";
-class PostsController implements Controller {
+class PostController implements Controller {
   public path = "/posts";
   public router = express.Router();
   private post = postModel;
@@ -64,4 +64,4 @@ class PostsController implements Controller {
   };
 }
 
-export default PostsController;
+export default PostController;

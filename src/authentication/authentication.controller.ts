@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import Controller from "../interfaces/controller.interface";
-import CreateUser from "users/createUser.interface";
-import LogIn from "users/logIn.interface";
+import CreateUser from "user/createUser.interface";
+import LogIn from "user/logIn.interface";
 import AuthenticationService from "./authentication.service";
 
 class AuthenticationController implements Controller {
@@ -43,7 +43,7 @@ class AuthenticationController implements Controller {
   private loggingOut = (req: Request, res: Response) => {
     const cookie = this.authenticationService.loggingOut();
     res.setHeader("Set-Cookie", [cookie]);
-    res.send(200);
+    res.sendStatus(200);
   };
 }
 
