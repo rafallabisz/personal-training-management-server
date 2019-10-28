@@ -1,7 +1,9 @@
 export interface User {
   _id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  isTrainer: boolean;
   password: string;
   data?: {
     age: number;
@@ -10,8 +12,10 @@ export interface User {
 }
 
 export interface CreateUser {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  isTrainer: boolean;
   password: string;
 }
 
