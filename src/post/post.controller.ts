@@ -3,9 +3,12 @@ import Post from "./post.interface";
 import Controller from "../interfaces/controller.interface";
 import postModel from "./post.model";
 import PostNotFoundException from "../exceptions/PostNotFoundException";
+import PostService from "./post.service";
+
 class PostController implements Controller {
   public path = "/posts";
   public router = express.Router();
+  public postService = new PostService();
   private post = postModel;
 
   constructor() {
@@ -21,7 +24,9 @@ class PostController implements Controller {
   }
 
   private getAllPosts = async (req: Request, res: Response): Promise<void> => {
-    const posts = await this.post.find();
+    // const posts = await this.post.find();
+    const posts = await this.postService.getAllPosts();
+
     res.json(posts);
   };
 
