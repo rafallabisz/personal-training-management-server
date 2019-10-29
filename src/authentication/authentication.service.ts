@@ -10,7 +10,7 @@ import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 
 class AuthenticationService {
-  public user = userModel;
+  private user = userModel;
 
   public register = async (userData: CreateUser) => {
     if (await this.user.findOne({ email: userData.email })) {
