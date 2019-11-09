@@ -42,7 +42,8 @@ class UserService {
 
   public deleteOfferById = async (userId: string, offerId: string) => {
     try {
-      await this.user.findByIdAndUpdate(userId, { $pull: { offers: { _id: offerId } } });
+      const user = await this.user.findByIdAndUpdate(userId, { $pull: { offers: { _id: offerId } } }, { new: true });
+      return user;
     } catch (err) {
       throw new HttpException(500, err.value);
     }

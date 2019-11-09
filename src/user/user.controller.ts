@@ -65,8 +65,8 @@ class UserController implements Controller {
     try {
       const userId = req.params.userId;
       const offerId = req.params.offerId;
-      await this.userService.deleteOfferById(userId, offerId);
-      res.status(200).json(`Offer deleted successfully!`);
+      const user = await this.userService.deleteOfferById(userId, offerId);
+      res.json(user);
     } catch (err) {
       next(err);
     }
