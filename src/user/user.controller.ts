@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from "express";
 import Controller from "../interfaces/controller.interface";
 import UserService from "./user.service";
-import { User } from "./user.interface";
+import { User, OfferDescription } from "./user.interface";
 
 class UserController implements Controller {
   public path = "/user";
@@ -16,6 +16,7 @@ class UserController implements Controller {
     this.router.get(this.path, this.getAllUsers);
     this.router.get(`${this.path}/filter`, this.getUsersByCity);
     this.router.put(`${this.path}/:id`, this.updateUser);
+    this.router.post(`${this.path}/offer/:id`, this.addOffer);
   }
 
   private getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
@@ -42,6 +43,17 @@ class UserController implements Controller {
       const id = req.params.id;
       const userData: User = req.body;
       const user = await this.userService.updateUser(id, userData);
+      res.json(user);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  private addOffer = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id;
+      const offers: OfferDescription = req.body;
+      const user = await this.userService.updateOffer(id, offers);
       res.json(user);
     } catch (err) {
       next(err);

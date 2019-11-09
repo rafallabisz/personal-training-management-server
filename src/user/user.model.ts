@@ -3,7 +3,8 @@ import { User } from "./user.interface";
 
 const dataSchema = new Schema({
   age: Number,
-  city: String
+  city: String,
+  phone: Number
 });
 
 const userSchema = new Schema({
@@ -12,6 +13,11 @@ const userSchema = new Schema({
   email: String,
   isTrainer: Boolean,
   password: String,
+  offers: [
+    {
+      description: String
+    }
+  ],
   data: dataSchema
 });
 

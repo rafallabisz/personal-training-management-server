@@ -1,5 +1,5 @@
 import userModel from "./user.model";
-import { User } from "./user.interface";
+import { User, OfferDescription } from "./user.interface";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 import HttpException from "../exceptions/HttpException";
 
@@ -27,6 +27,16 @@ class UserService {
       return user;
     } catch (err) {
       throw new UserNotFoundException(err.value);
+    }
+  };
+
+  public updateOffer = async (id: string, description: OfferDescription) => {
+    try {
+      const user = await this.user.findByIdAndUpdate(id, { $push: { offers: description } }, { new: true });
+
+      return user;
+    } catch (err) {
+      throw new HttpException(500, err.value);
     }
   };
 }

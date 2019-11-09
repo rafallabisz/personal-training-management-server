@@ -5,10 +5,27 @@ export interface User {
   email: string;
   isTrainer: boolean;
   password: string;
+  offers?: [
+    {
+      description: string;
+    }
+  ];
   data?: {
     age: number;
     city: string;
+    phone: number;
   };
+}
+
+// export interface Description {
+//   description: string;
+// }
+// export interface OfferArr {
+//   offers: Description[];
+// }
+
+export interface OfferDescription {
+  description: string;
 }
 
 export interface CreateUser {
