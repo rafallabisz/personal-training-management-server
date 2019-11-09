@@ -39,6 +39,14 @@ class UserService {
       throw new HttpException(500, err.value);
     }
   };
+
+  public deleteOfferById = async (userId: string, offerId: string) => {
+    try {
+      await this.user.findByIdAndUpdate(userId, { $pull: { offers: { _id: offerId } } });
+    } catch (err) {
+      throw new HttpException(500, err.value);
+    }
+  };
 }
 
 export default UserService;

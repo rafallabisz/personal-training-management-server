@@ -7,6 +7,7 @@ export interface User {
   password: string;
   offers?: [
     {
+      _id: string;
       description: string;
     }
   ];
@@ -16,14 +17,6 @@ export interface User {
     phone: number;
   };
 }
-
-// export interface Description {
-//   description: string;
-// }
-// export interface OfferArr {
-//   offers: Description[];
-// }
-
 export interface OfferDescription {
   description: string;
 }
