@@ -35,7 +35,7 @@ class AuthenticationService {
     if (user) {
       const isPasswordMatching = await bcrypt.compare(logInData.password, user.password);
       if (isPasswordMatching) {
-        // user.password = "undefined";
+        user.password = "undefined";
         const tokenData = this.createToken(user);
         const cookie = this.createCookie(tokenData);
         return {
