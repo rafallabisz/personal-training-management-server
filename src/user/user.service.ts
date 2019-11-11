@@ -2,6 +2,7 @@ import userModel from "./user.model";
 import { User, OfferDescription } from "./user.interface";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 import HttpException from "../exceptions/HttpException";
+import * as bcrypt from "bcrypt";
 
 class UserService {
   private user = userModel;
@@ -23,7 +24,15 @@ class UserService {
 
   public updateUser = async (id: string, userData: User) => {
     try {
-      const user = await this.user.findByIdAndUpdate(id, userData, { new: true });
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
+      let user = await this.user.findByIdAndUpdate(
+        id,
+        {
+          ...userData,
+          password: hashedPassword
+        },
+        { new: true }
+      );
       return user;
     } catch (err) {
       throw new UserNotFoundException(err.value);
