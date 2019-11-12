@@ -18,7 +18,13 @@ const userSchema = new Schema({
       description: String
     }
   ],
-  data: dataSchema
+  data: dataSchema,
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 const userModel = mongoose.model<User & mongoose.Document>("User", userSchema);

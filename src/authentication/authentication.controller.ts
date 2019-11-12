@@ -19,19 +19,19 @@ class AuthenticationController implements Controller {
   }
 
   private registration = async (req: Request, res: Response, next: NextFunction) => {
-    const userData: CreateUser = req.body;
     try {
+      const userData: CreateUser = req.body;
       const { cookie, user } = await this.authenticationService.register(userData);
       res.setHeader("Set-Cookie", [cookie]);
-      res.json(user);
+      res.status(201).json(user);
     } catch (err) {
       next(err);
     }
   };
 
   private loggingIn = async (req: Request, res: Response, next: NextFunction) => {
-    const logInData: LogIn = req.body;
     try {
+      const logInData: LogIn = req.body;
       const { cookie, user } = await this.authenticationService.loggingIn(logInData);
       res.setHeader("Set-Cookie", [cookie]);
       res.json(user);

@@ -16,6 +16,13 @@ export interface User {
     city: string;
     phone: number;
   };
+  comments: [
+    {
+      author: string;
+      content: string;
+      rating: number;
+    }
+  ];
 }
 export interface OfferDescription {
   description: string;
