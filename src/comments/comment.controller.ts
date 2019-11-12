@@ -19,12 +19,13 @@ class CommentController implements Controller {
   }
 
   private getTrainerComments = async (req: Request, res: Response, next: NextFunction) => {
-    // try {
-    //   const trainers = await this.userService.getAllUsers();
-    //   res.json(users);
-    // } catch (err) {
-    //   next(err);
-    // }
+    try {
+      const { trainerId } = req.params;
+      const trainer = await this.commentService.getTrainerComments(trainerId);
+      res.json(trainer);
+    } catch (err) {
+      next(err);
+    }
   };
 
   private newTrainerComment = async (req: Request, res: Response, next: NextFunction) => {
