@@ -22,6 +22,16 @@ class UserService {
     }
   };
 
+  public getAllTrainers = async () => {
+    try {
+      const trainers = this.user.find({ isTrainer: true });
+      await trainers.exec((err, data) => data);
+      return trainers;
+    } catch (err) {
+      throw new HttpException(500, err.value);
+    }
+  };
+
   public updateUser = async (id: string, userData: User) => {
     try {
       const hashedPassword = await bcrypt.hash(userData.password, 10);
