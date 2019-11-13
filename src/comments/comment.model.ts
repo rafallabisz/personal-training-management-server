@@ -5,6 +5,7 @@ const commentSchema = new Schema({
   author: String,
   content: String,
   rating: Number,
+  createdAt: { type: Date, default: Date.now },
   trainer: {
     type: Schema.Types.ObjectId,
     ref: "User"

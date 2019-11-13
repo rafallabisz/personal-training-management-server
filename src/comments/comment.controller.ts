@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, Router } from "express";
 import Controller from "../interfaces/controller.interface";
 import CommentService from "./comment.service";
+import { NewComment } from "./comment.interface";
 
 class CommentController implements Controller {
   public path = "/trainer";
@@ -32,7 +33,7 @@ class CommentController implements Controller {
   private newTrainerComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { trainerId } = req.params;
-      const newComment = req.body;
+      const newComment: NewComment = req.body;
       const comment = await this.commentService.newTrainerComment(trainerId, newComment);
       res.status(201).json(comment);
     } catch (err) {
