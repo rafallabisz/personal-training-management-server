@@ -8,7 +8,7 @@ class CommentService {
   private user = userModel;
 
   public getTrainerComments = async (trainerId: string) => {
-    const trainer = await this.user.findById(trainerId);
+    const trainer = await this.user.findById(trainerId).populate("comments");
     return trainer;
   };
 
