@@ -13,9 +13,15 @@ const userSchema = new Schema({
   email: String,
   isTrainer: Boolean,
   password: String,
-  offers: [
+  // offers: [
+  //   {
+  //     description: String
+  //   }
+  // ],
+  offers:[
     {
-      description: String
+      type:Schema.Types.ObjectId,
+      ref:"Offer"
     }
   ],
   data: dataSchema,

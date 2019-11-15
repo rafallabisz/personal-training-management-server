@@ -1,5 +1,6 @@
 import userModel from "./user.model";
-import { User, OfferDescription } from "./user.interface";
+// import { User, OfferDescription } from "./user.interface";
+import { User } from "./user.interface";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 import HttpException from "../exceptions/HttpException";
 import * as bcrypt from "bcrypt";
@@ -49,24 +50,24 @@ class UserService {
     }
   };
 
-  public updateOffer = async (id: string, description: OfferDescription) => {
-    try {
-      const user = await this.user.findByIdAndUpdate(id, { $push: { offers: description } }, { new: true });
+  // public updateOffer = async (id: string, description: OfferDescription) => {
+  //   try {
+  //     const user = await this.user.findByIdAndUpdate(id, { $push: { offers: description } }, { new: true });
 
-      return user;
-    } catch (err) {
-      throw new HttpException(500, err.value);
-    }
-  };
+  //     return user;
+  //   } catch (err) {
+  //     throw new HttpException(500, err.value);
+  //   }
+  // };
 
-  public deleteOfferById = async (userId: string, offerId: string) => {
-    try {
-      const user = await this.user.findByIdAndUpdate(userId, { $pull: { offers: { _id: offerId } } }, { new: true });
-      return user;
-    } catch (err) {
-      throw new HttpException(500, err.value);
-    }
-  };
+  // public deleteOfferById = async (userId: string, offerId: string) => {
+  //   try {
+  //     const user = await this.user.findByIdAndUpdate(userId, { $pull: { offers: { _id: offerId } } }, { new: true });
+  //     return user;
+  //   } catch (err) {
+  //     throw new HttpException(500, err.value);
+  //   }
+  // };
 }
 
 export default UserService;

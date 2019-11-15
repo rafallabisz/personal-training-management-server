@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction, Router } from "express";
 import Controller from "../interfaces/controller.interface";
 import UserService from "./user.service";
-import { User, OfferDescription } from "./user.interface";
+// import { User, OfferDescription } from "./user.interface";
+import { User } from "./user.interface";
 
 class UserController implements Controller {
   public path = "/user";
@@ -17,8 +18,8 @@ class UserController implements Controller {
     this.router.get(`${this.path}/filter`, this.getUsersByCity);
     this.router.get(`${this.path}/trainers`, this.getAllTrainers);
     this.router.put(`${this.path}/:id`, this.updateUser);
-    this.router.post(`${this.path}/offer/:id`, this.addOffer);
-    this.router.delete(`${this.path}/offer/:userId/:offerId`, this.deleteOfferById);
+    // this.router.post(`${this.path}/offer/:id`, this.addOffer);
+    // this.router.delete(`${this.path}/offer/:userId/:offerId`, this.deleteOfferById);
   }
 
   private getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,27 +61,27 @@ class UserController implements Controller {
     }
   };
 
-  private addOffer = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id;
-      const offerDescription: OfferDescription = req.body;
-      const user = await this.userService.updateOffer(id, offerDescription);
-      res.json(user);
-    } catch (err) {
-      next(err);
-    }
-  };
+  // private addOffer = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const id = req.params.id;
+  //     const offerDescription: OfferDescription = req.body;
+  //     const user = await this.userService.updateOffer(id, offerDescription);
+  //     res.json(user);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // };
 
-  private deleteOfferById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userId = req.params.userId;
-      const offerId = req.params.offerId;
-      const user = await this.userService.deleteOfferById(userId, offerId);
-      res.json(user);
-    } catch (err) {
-      next(err);
-    }
-  };
+  // private deleteOfferById = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const userId = req.params.userId;
+  //     const offerId = req.params.offerId;
+  //     const user = await this.userService.deleteOfferById(userId, offerId);
+  //     res.json(user);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // };
 }
 
 export default UserController;
