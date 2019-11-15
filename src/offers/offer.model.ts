@@ -1,13 +1,9 @@
 import mongoose, { Schema } from "mongoose";
-import {Offer} from './offer.interface';
+import { Offer } from "./offer.interface";
 
 const offerSchema = new Schema({
-  description:String,
-  trainer:{
-    type:Schema.Types.ObjectId,
-    ref:'User'
-  }
-})
+  description: String
+});
 
 const offerModel = mongoose.model<Offer & mongoose.Document>("Offer", offerSchema);
 

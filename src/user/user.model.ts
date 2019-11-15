@@ -18,13 +18,13 @@ const userSchema = new Schema({
   //     description: String
   //   }
   // ],
-  offers:[
+  data: dataSchema,
+  offers: [
     {
-      type:Schema.Types.ObjectId,
-      ref:"Offer"
+      type: Schema.Types.ObjectId,
+      ref: "Offer"
     }
   ],
-  data: dataSchema,
   comments: [
     {
       type: Schema.Types.ObjectId,

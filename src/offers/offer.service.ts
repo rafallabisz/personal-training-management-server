@@ -7,22 +7,18 @@ class OfferService {
   private offer = offerModel;
   private user = userModel;
 
-  // public getTrainerOffer = async (trainerId: string) => {
-  //   const trainer = await this.user.findById(trainerId).populate("comments");
-  //   return trainer;
-  // };
+  public getTrainerOffers = async (trainerId: string) => {
+    const trainer = await this.user.findById(trainerId).populate("offers");
+    const offers = trainer!.offers;
+    return offers;
+  };
 
   public newTrainerOffer = async (trainerId: string, newOffer: NewOffer) => {
     try {
-      //create newOffer
       const offer = new this.offer(newOffer);
-      //get trainer
-      const trainer = await this.user.findById(trainerId);
+      const trainer = await this.user.findById(trainerId).populate("offers");
       if (trainer) {
-        //assign trainer as offer trainer
-        // offer.trainer = trainer;
-        // await offer.save();
-        //add comment to the trainer comments array 'comments'
+        await offer.save();
         trainer.offers.push(offer);
         await trainer.save();
         return trainer.offers;

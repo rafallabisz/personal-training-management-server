@@ -13,19 +13,21 @@ class OfferController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.route(`${this.path}/:trainerId/offers`).post(this.newTrainerOffer);
+    this.router
+      .route(`${this.path}/:trainerId/offers`)
+      .get(this.getTrainerOffers)
+      .post(this.newTrainerOffer);
   }
 
-  // private getTrainerOffers = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const { trainerId } = req.params;
-  //     const trainer = await this.offerService.getTrainerComments(trainerId);
-  //     const comments = trainer!.comments;
-  //     res.json(comments);
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // };
+  private getTrainerOffers = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { trainerId } = req.params;
+      const offers = await this.offerService.getTrainerOffers(trainerId);
+      res.json(offers);
+    } catch (err) {
+      next(err);
+    }
+  };
 
   private newTrainerOffer = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -38,6 +40,17 @@ class OfferController implements Controller {
       next(err);
     }
   };
+
+  // private deleteTrainerOffer = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const { trainerId } = req.params;
+  //     const offer = await this.offerService.deleteTrainerOffer(trainerId);
+
+  //     res.status(200).json(offer);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // };
 }
 
 export default OfferController;
