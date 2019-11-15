@@ -27,6 +27,16 @@ class OfferService {
       throw new HttpException(500, err.message);
     }
   };
+
+  public deleteTrainerOffer = async (trainerId: string, offerId: string) => {
+    try {
+      // const trainer = await this.offer.findById(offerId);
+      const offer = await this.offer.findByIdAndDelete(offerId);
+      return offer;
+    } catch (err) {
+      throw new HttpException(500, err.message);
+    }
+  };
 }
 
 export default OfferService;

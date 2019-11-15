@@ -17,6 +17,7 @@ class OfferController implements Controller {
       .route(`${this.path}/:trainerId/offers`)
       .get(this.getTrainerOffers)
       .post(this.newTrainerOffer);
+    this.router.delete(`${this.path}/:trainerId/:offerId/offers`, this.deleteTrainerOffer);
   }
 
   private getTrainerOffers = async (req: Request, res: Response, next: NextFunction) => {
@@ -41,16 +42,16 @@ class OfferController implements Controller {
     }
   };
 
-  // private deleteTrainerOffer = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const { trainerId } = req.params;
-  //     const offer = await this.offerService.deleteTrainerOffer(trainerId);
+  private deleteTrainerOffer = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { trainerId, offerId } = req.params;
+      const offer = await this.offerService.deleteTrainerOffer(trainerId, offerId);
 
-  //     res.status(200).json(offer);
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // };
+      res.status(200).json(offer);
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 export default OfferController;
