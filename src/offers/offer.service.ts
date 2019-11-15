@@ -30,8 +30,9 @@ class OfferService {
 
   public deleteTrainerOffer = async (trainerId: string, offerId: string) => {
     try {
-      // const trainer = await this.offer.findById(offerId);
-      const offer = await this.offer.findByIdAndDelete(offerId);
+      const offerDeleted = await this.offer.findOneAndRemove({ _id: offerId });
+      await this.user.updateOne({ offers: offerId }, { $pull: { offers: offerId } });
+      const offer = await this.getTrainerOffers(trainerId);
       return offer;
     } catch (err) {
       throw new HttpException(500, err.message);

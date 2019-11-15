@@ -46,7 +46,6 @@ class OfferController implements Controller {
     try {
       const { trainerId, offerId } = req.params;
       const offer = await this.offerService.deleteTrainerOffer(trainerId, offerId);
-
       res.status(200).json(offer);
     } catch (err) {
       next(err);
