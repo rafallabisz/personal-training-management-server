@@ -25,7 +25,7 @@ class UserService {
 
   public getAllTrainers = async () => {
     try {
-      const trainers = this.user.find({ isTrainer: true });
+      const trainers = this.user.find({ isTrainer: true }).populate("offers comments");
       await trainers.exec((err, data) => data);
       return trainers;
     } catch (err) {
