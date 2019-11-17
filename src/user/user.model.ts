@@ -13,11 +13,6 @@ const userSchema = new Schema({
   email: String,
   isTrainer: Boolean,
   password: String,
-  // offers: [
-  //   {
-  //     description: String
-  //   }
-  // ],
   data: dataSchema,
   offers: [
     {
@@ -32,7 +27,5 @@ const userSchema = new Schema({
     }
   ]
 });
-
 const userModel = mongoose.model<User & mongoose.Document>("User", userSchema);
-
 export default userModel;

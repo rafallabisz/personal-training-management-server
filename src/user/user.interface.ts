@@ -5,12 +5,6 @@ export interface User {
   email: string;
   isTrainer: boolean;
   password: string;
-  // offers?: [
-  //   {
-  //     _id: string;
-  //     description: string;
-  //   }
-  // ];
   data?: {
     age: number;
     city: string;
@@ -21,7 +15,6 @@ export interface User {
       description: string;
     }
   ];
-
   comments: [
     {
       author: string;
@@ -30,9 +23,6 @@ export interface User {
     }
   ];
 }
-// export interface OfferDescription {
-//   description: string;
-// }
 
 export interface CreateUser {
   firstName: string;
