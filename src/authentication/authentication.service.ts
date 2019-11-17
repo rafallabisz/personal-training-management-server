@@ -1,24 +1,26 @@
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import trainerModel from "../trainer/trainer.model";
 import userModel from "../user/user.model";
 import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatEmailAlreadyExistsException";
-import { User } from "../user/user.interface";
+import { Trainer } from "../trainer/trainer.interface";
 import TokenData from "../interfaces/tokenData.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken.interface";
-import { CreateUser, LogIn } from "../user/user.interface";
+import { CreateAccount, LogIn } from "./authentication.interface";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 
 class AuthenticationService {
+  private trainer = trainerModel;
   private user = userModel;
 
-  public register = async (userData: CreateUser) => {
-    if (await this.user.findOne({ email: userData.email })) {
-      throw new UserWithThatEmailAlreadyExistsException(userData.email);
+  public register = async (registerData: CreateAccount) => {
+    if (await this.trainer.findOne({ email: registerData.email })) {
+      throw new UserWithThatEmailAlreadyExistsException(registerData.email);
     }
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const user = await this.user.create({
-      ...userData,
+    const hashedPassword = await bcrypt.hash(registerData.password, 10);
+    const user = await this.trainer.create({
+      ...registerData,
       password: hashedPassword
     });
     user.password = "undefined";
@@ -31,7 +33,7 @@ class AuthenticationService {
   };
 
   public loggingIn = async (logInData: LogIn) => {
-    const user = await this.user.findOne({ email: logInData.email });
+    const user = await this.trainer.findOne({ email: logInData.email });
     if (user) {
       const isPasswordMatching = await bcrypt.compare(logInData.password, user.password);
       if (isPasswordMatching) {
@@ -55,7 +57,7 @@ class AuthenticationService {
     return cookie;
   };
 
-  public createToken = (user: User): TokenData => {
+  public createToken = (user: Trainer): TokenData => {
     const expiresIn = 60 * 60; //an hour
     const secret = process.env.JWT_SECRET!;
     const dataStoredInToken: DataStoredInToken = {
@@ -73,7 +75,7 @@ class AuthenticationService {
 
   public deleteAccount = async (id: string) => {
     try {
-      await this.user.findByIdAndDelete(id).exec();
+      await this.trainer.findByIdAndDelete(id).exec();
     } catch (err) {
       throw new UserNotFoundException(err.value);
     }

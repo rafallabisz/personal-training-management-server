@@ -1,11 +1,11 @@
-import userModel from "../user/user.model";
+import trainerModel from "../trainer/trainer.model";
 import offerModel from "./offer.model";
 import { NewOffer } from "./offer.interface";
 import HttpException from "../exceptions/HttpException";
 
 class OfferService {
   private offer = offerModel;
-  private user = userModel;
+  private user = trainerModel;
 
   public getTrainerOffers = async (trainerId: string) => {
     const trainer = await this.user.findById(trainerId).populate("offers");

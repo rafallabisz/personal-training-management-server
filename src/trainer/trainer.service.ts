@@ -1,20 +1,20 @@
-import userModel from "./user.model";
-import { User } from "./user.interface";
+import trainerModel from "./trainer.model";
+import { Trainer } from "./trainer.interface";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 import HttpException from "../exceptions/HttpException";
 import * as bcrypt from "bcrypt";
 
 class TrainerService {
-  private user = userModel;
+  private trainer = trainerModel;
 
   public getAllUsers = async () => {
-    const users = this.user.find();
+    const users = this.trainer.find();
     return users;
   };
 
   public getUsersByCity = async (city: string) => {
     try {
-      const users = this.user.find({ "data.city": city });
+      const users = this.trainer.find({ "data.city": city });
       await users.exec((err, data) => data);
       return users;
     } catch (err) {
@@ -24,7 +24,7 @@ class TrainerService {
 
   public getAllTrainers = async () => {
     try {
-      const trainers = this.user.find({ isTrainer: true }).populate("offers comments");
+      const trainers = this.trainer.find({ isTrainer: true }).populate("offers comments");
       await trainers.exec((err, data) => data);
       return trainers;
     } catch (err) {
@@ -32,13 +32,13 @@ class TrainerService {
     }
   };
 
-  public updateUser = async (id: string, userData: User) => {
+  public updateUser = async (id: string, trainerData: Trainer) => {
     try {
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
-      let user = await this.user.findByIdAndUpdate(
+      const hashedPassword = await bcrypt.hash(trainerData.password, 10);
+      let user = await this.trainer.findByIdAndUpdate(
         id,
         {
-          ...userData,
+          ...trainerData,
           password: hashedPassword
         },
         { new: true }

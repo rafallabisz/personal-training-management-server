@@ -1,20 +1,20 @@
 import "dotenv/config";
 import App from "./app";
-import PostController from "./post/post.controller";
 import validateEnv from "./utils/validateEnv";
 import AuthenticationController from "./authentication/authentication.controller";
-import UserController from "./user/user.controller";
+import TrainerController from "./trainer/trainer.controller";
 import CommentController from "./comments/comment.controller";
 import OfferController from "./offers/offer.controller";
+import UserController from "./user/user.controller";
 
 validateEnv();
 
 const app = new App([
-  new PostController(),
   new AuthenticationController(),
-  new UserController(),
+  new TrainerController(),
   new CommentController(),
-  new OfferController()
+  new OfferController(),
+  new UserController()
 ]);
 
 app.listen();

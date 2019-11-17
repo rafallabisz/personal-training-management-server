@@ -4,7 +4,7 @@ import AuthenticationTokenMissingException from "../exceptions/AuthenticationTok
 import WrongAuthenticationTokenException from "../exceptions/WrongAuthenticationTokenException";
 import DataStoredInToken from "../interfaces/dataStoredInToken.interface";
 import RequestWithUser from "../interfaces/requestWithUser.interface";
-import userModel from "../user/user.model";
+import trainerModel from "../trainer/trainer.model";
 
 async function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
   const cookies = req.cookies;
@@ -13,7 +13,7 @@ async function authMiddleware(req: RequestWithUser, res: Response, next: NextFun
     try {
       const verificationResponse = jwt.verify(cookies.Authorization, secret) as DataStoredInToken;
       const id = verificationResponse._id;
-      const user = await userModel.findById(id);
+      const user = await trainerModel.findById(id);
       if (user) {
         req.user = user;
         next();

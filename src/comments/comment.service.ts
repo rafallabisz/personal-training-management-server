@@ -1,11 +1,11 @@
 import HttpException from "../exceptions/HttpException";
 import commentModel from "./comment.model";
 import { NewComment } from "./comment.interface";
-import userModel from "../user/user.model";
+import trainerModel from "../trainer/trainer.model";
 
 class CommentService {
   private comment = commentModel;
-  private user = userModel;
+  private user = trainerModel;
 
   public getTrainerComments = async (trainerId: string) => {
     const trainer = await this.user.findById(trainerId).populate("comments");

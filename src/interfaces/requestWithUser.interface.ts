@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { User } from "../user/user.interface";
+import { Trainer } from "../trainer/trainer.interface";
 
 interface RequestWithUser extends Request {
-  user: User;
+  user: Trainer;
 }
 export default RequestWithUser;

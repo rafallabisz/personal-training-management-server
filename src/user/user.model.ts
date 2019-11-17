@@ -13,19 +13,7 @@ const userSchema = new Schema({
   email: String,
   isTrainer: Boolean,
   password: String,
-  data: dataSchema,
-  offers: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Offer"
-    }
-  ],
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Comment"
-    }
-  ]
+  data: dataSchema
 });
 const userModel = mongoose.model<User & mongoose.Document>("User", userSchema);
 export default userModel;
