@@ -8,6 +8,7 @@ export interface User {
   email: string;
   isTrainer: boolean;
   password: string;
+  gender: "male" | "female";
   data?: PersonalData;
   offers: Offer[];
   comments: Comment[];

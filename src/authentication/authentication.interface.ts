@@ -4,6 +4,7 @@ export interface CreateUser {
   email: string;
   isTrainer: boolean;
   password: string;
+  gender: "male" | "female";
 }
 
 export interface LogIn {

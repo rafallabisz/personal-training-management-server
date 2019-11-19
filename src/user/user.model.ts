@@ -13,6 +13,10 @@ const userSchema = new Schema({
   email: String,
   isTrainer: Boolean,
   password: String,
+  gender: {
+    type: String,
+    enum: ["male", "female"]
+  },
   data: dataSchema,
   offers: [
     {
