@@ -1,3 +1,6 @@
+import { Offer } from "../offers/offer.interface";
+import { Comment } from "../comments/comment.interface";
+
 export interface User {
   _id: string;
   firstName: string;
@@ -5,34 +8,13 @@ export interface User {
   email: string;
   isTrainer: boolean;
   password: string;
-  data?: {
-    age: number;
-    city: string;
-    phone: number;
-  };
-  offers: [
-    {
-      description: string;
-    }
-  ];
-  comments: [
-    {
-      author: string;
-      content: string;
-      rating: number;
-    }
-  ];
+  data?: PersonalData;
+  offers: Offer[];
+  comments: Comment[];
 }
 
-export interface CreateUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  isTrainer: boolean;
-  password: string;
-}
-
-export interface LogIn {
-  email: string;
-  password: string;
+export interface PersonalData {
+  age: number;
+  city: string;
+  phone: number;
 }

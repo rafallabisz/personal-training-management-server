@@ -5,7 +5,7 @@ import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatE
 import { User } from "../user/user.interface";
 import TokenData from "../interfaces/tokenData.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken.interface";
-import { CreateUser, LogIn } from "../user/user.interface";
+import { CreateUser, LogIn } from "./authentication.interface";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 
