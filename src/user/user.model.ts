@@ -26,7 +26,14 @@ const userSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Comment"
     }
+  ],
+  reservations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Reservation"
+    }
   ]
 });
+
 const userModel = mongoose.model<User & mongoose.Document>("User", userSchema);
 export default userModel;

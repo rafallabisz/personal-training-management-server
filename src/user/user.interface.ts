@@ -1,5 +1,6 @@
 import { Offer } from "../offers/offer.interface";
 import { Comment } from "../comments/comment.interface";
+import { Reservation } from "reservations/reservation.interface";
 
 export interface User {
   _id: string;
@@ -12,6 +13,7 @@ export interface User {
   data?: PersonalData;
   offers: Offer[];
   comments: Comment[];
+  reservations: Reservation[];
 }
 
 export interface PersonalData {
