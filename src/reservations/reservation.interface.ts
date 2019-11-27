@@ -3,4 +3,5 @@ export interface Reservation {
   lastName: string;
   selectTrainingType: string;
   reserveDate: Date;
+  trainer: {};
 }
