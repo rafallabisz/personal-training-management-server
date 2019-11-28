@@ -4,7 +4,7 @@ import { Reservation } from "./reservation.interface";
 import ReservationService from "./reservation.service";
 
 class ReservationController implements Controller {
-  public path = "/trainer";
+  public path = "/api/reservations";
   public router = Router();
   public reservationService = new ReservationService();
 
@@ -14,54 +14,28 @@ class ReservationController implements Controller {
 
   private initializeRoutes() {
     this.router
-      .route(`${this.path}/:trainerId/reservations`)
-      .get(this.getTrainerReservations)
-      .post(this.newTrainerReservation);
-
-    this.router
-      .route(`/user/:userId/reservations`)
-      .get(this.getUserReservations)
-      .post(this.newUserReservation);
+      .route(`${this.path}/:id`)
+      .get(this.getReservationsById)
+      .post(this.addReservation);
   }
 
-  private getTrainerReservations = async (req: Request, res: Response, next: NextFunction) => {
+  private getReservationsById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { trainerId } = req.params;
-      const reservations = await this.reservationService.getTrainerReservations(trainerId);
+      const { id } = req.params;
+      const reservations = await this.reservationService.getReservations(id);
       res.json(reservations);
     } catch (err) {
       next(err);
     }
   };
 
-  private newTrainerReservation = async (req: Request, res: Response, next: NextFunction) => {
+  private addReservation = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { trainerId } = req.params;
+      const { id } = req.params;
       const newReservation: Reservation = req.body;
-      const reservation = await this.reservationService.newTrainerReservation(trainerId, newReservation);
+      const reservation = await this.reservationService.addReservation(id, newReservation);
       res.status(201).json(reservation);
       res.status(201);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  private getUserReservations = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { userId } = req.params;
-      const reservations = await this.reservationService.getUserReservations(userId);
-      res.json(reservations);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  private newUserReservation = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { userId } = req.params;
-      const newReservation: Reservation = req.body;
-      const reservation = await this.reservationService.newUserReservation(userId, newReservation);
-      res.status(201).json(reservation);
     } catch (err) {
       next(err);
     }

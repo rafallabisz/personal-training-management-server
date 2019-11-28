@@ -7,53 +7,27 @@ class ReservationService {
   private reservation = reservationModel;
   private user = userModel;
 
-  public getTrainerReservations = async (trainerId: string) => {
-    const trainer = await this.user.findById(trainerId).populate("reservations");
-    const reservations = trainer!.reservations;
+  public getReservations = async (id: string) => {
+    const person = await this.user.findById(id).populate("reservations");
+    const reservations = person!.reservations;
     return reservations;
   };
 
-  public newTrainerReservation = async (trainerId: string, reservation: Reservation) => {
+  public addReservation = async (id: string, reservation: Reservation) => {
     try {
       //create newComment
       const newReservation = new this.reservation(reservation);
       //get trainer
-      const trainer = await this.user.findById(trainerId);
+      const person = await this.user.findById(id);
 
-      if (trainer) {
+      if (person) {
         //assign trainer as comment trainer
-        newReservation.trainer = trainer;
+        newReservation.trainer = person;
         await newReservation.save();
         //add comment to the trainer comments array 'comments'
-        trainer.reservations.push(newReservation);
-        await trainer.save();
-        return trainer;
-      }
-    } catch (err) {
-      throw new HttpException(500, err.message);
-    }
-  };
-
-  public getUserReservations = async (userId: string) => {
-    const user = await this.user.findById(userId).populate("reservations");
-    const reservations = user!.reservations;
-    return reservations;
-  };
-
-  public newUserReservation = async (userId: string, reservation: Reservation) => {
-    try {
-      //create newComment
-      const newReservation = new this.reservation(reservation);
-      //get trainer
-      const user = await this.user.findById(userId);
-      if (user) {
-        //assign trainer as comment trainer
-        newReservation.trainer = user;
-        await newReservation.save();
-        //add comment to the trainer comments array 'comments'
-        user.reservations.push(newReservation);
-        await user.save();
-        return user;
+        person.reservations.push(newReservation);
+        await person.save();
+        return person;
       }
     } catch (err) {
       throw new HttpException(500, err.message);
