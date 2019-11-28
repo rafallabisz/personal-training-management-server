@@ -15,16 +15,11 @@ class ReservationService {
 
   public addReservation = async (id: string, reservation: Reservation) => {
     try {
-      //create newComment
       const newReservation = new this.reservation(reservation);
-      //get trainer
       const person = await this.user.findById(id);
-
       if (person) {
-        //assign trainer as comment trainer
         newReservation.trainer = person;
         await newReservation.save();
-        //add comment to the trainer comments array 'comments'
         person.reservations.push(newReservation);
         await person.save();
         return person;
