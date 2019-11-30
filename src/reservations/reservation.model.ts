@@ -6,6 +6,8 @@ const reservationSchema = new Schema({
   lastName: String,
   selectTrainingType: String,
   reserveDate: Date,
+  firstNameTrainer: String,
+  lastNameTrainer: String,
   trainer: {
     type: Schema.Types.ObjectId,
     ref: "User"

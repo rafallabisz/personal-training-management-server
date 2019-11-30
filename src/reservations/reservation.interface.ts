@@ -3,5 +3,11 @@ export interface Reservation {
   lastName: string;
   selectTrainingType: string;
   reserveDate: Date;
-  trainer: {};
+  firstNameTrainer: string;
+  lastNameTrainer: string;
+  trainer: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
 }
