@@ -5,6 +5,7 @@ export interface Reservation {
   reserveDate: Date;
   firstNameTrainer: string;
   lastNameTrainer: string;
+  trainerPhone: number;
   trainer: {
     firstName: string;
     lastName: string;
