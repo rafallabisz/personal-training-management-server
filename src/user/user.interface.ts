@@ -20,4 +20,5 @@ export interface PersonalData {
   age: number;
   city: string;
   phone: number;
+  avatar: string;
 }

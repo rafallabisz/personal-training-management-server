@@ -4,7 +4,8 @@ import { User } from "./user.interface";
 const dataSchema = new Schema({
   age: Number,
   city: String,
-  phone: Number
+  phone: Number,
+  avatar: String
 });
 
 const userSchema = new Schema({
