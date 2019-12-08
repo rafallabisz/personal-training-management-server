@@ -14,7 +14,7 @@ class UserController implements Controller {
 
   private initializeRoutes() {
     this.router.get(this.path, this.getAllUsers);
-    this.router.get(`${this.path}/filter`, this.getUsersByCity);
+    this.router.get(`${this.path}/:trainerId`, this.getTrainerById);
     this.router.get(`${this.path}/trainers`, this.getAllTrainers);
     this.router.put(`${this.path}/:id`, this.updateUser);
   }
@@ -28,11 +28,11 @@ class UserController implements Controller {
     }
   };
 
-  private getUsersByCity = async (req: Request, res: Response, next: NextFunction) => {
+  private getTrainerById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const city: string = req.query.city;
-      const users = await this.userService.getUsersByCity(city);
-      res.json(users);
+      const { trainerId } = req.params;
+      const trainer = await this.userService.getTrainerById(trainerId);
+      res.json(trainer);
     } catch (err) {
       next(err);
     }

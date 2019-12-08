@@ -12,11 +12,10 @@ class UserService {
     return users;
   };
 
-  public getUsersByCity = async (city: string) => {
+  public getTrainerById = async (trainerId: string) => {
     try {
-      const users = this.user.find({ "data.city": city });
-      await users.exec((err, data) => data);
-      return users;
+      const trainer = await this.user.findById(trainerId);
+      return trainer;
     } catch (err) {
       throw new HttpException(500, err.value);
     }
