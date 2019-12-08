@@ -12,10 +12,11 @@ class UserService {
     return users;
   };
 
-  public getTrainerById = async (trainerId: string) => {
+  public getUsersByCity = async (city: string) => {
     try {
-      const trainer = await this.user.findById(trainerId);
-      return trainer;
+      const users = this.user.find({ "data.city": city });
+      await users.exec((err, data) => data);
+      return users;
     } catch (err) {
       throw new HttpException(500, err.value);
     }
@@ -45,6 +46,15 @@ class UserService {
       return user;
     } catch (err) {
       throw new UserNotFoundException(err.value);
+    }
+  };
+
+  public getTrainerById = async (trainerId: string) => {
+    try {
+      const trainer = await this.user.findById(trainerId);
+      return trainer;
+    } catch (err) {
+      throw new HttpException(500, err.value);
     }
   };
 }
