@@ -6,6 +6,7 @@ const commentSchema = new Schema({
   content: String,
   rating: Number,
   createdAt: { type: Date, default: Date.now },
+  avatar: String,
   trainer: {
     type: Schema.Types.ObjectId,
     ref: "User"
