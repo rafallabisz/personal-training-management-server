@@ -21,4 +21,5 @@ export interface PersonalData {
   city: string;
   phone: number;
   avatar: string;
+  gallery: string[];
 }

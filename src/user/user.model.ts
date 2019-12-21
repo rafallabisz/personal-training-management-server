@@ -5,7 +5,8 @@ const dataSchema = new Schema({
   age: Number,
   city: String,
   phone: Number,
-  avatar: String
+  avatar: String,
+  gallery: [String]
 });
 
 const userSchema = new Schema({
