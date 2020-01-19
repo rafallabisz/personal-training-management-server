@@ -1,3 +1,7 @@
+import { Offer } from "../offers/offer.interface";
+import { Comment } from "../comments/comment.interface";
+import { Reservation } from "reservations/reservation.interface";
+
 export interface User {
   _id: string;
   firstName: string;
@@ -5,10 +9,17 @@ export interface User {
   email: string;
   isTrainer: boolean;
   password: string;
-  data?: {
-    age: number;
-    city: string;
-    phone: number;
-  };
+  gender: string;
+  data?: PersonalData;
+  offers: Offer[];
+  comments: Comment[];
+  reservations: Reservation[];
 }
 
+export interface PersonalData {
+  age: number;
+  city: string;
+  phone: number;
+  avatar: string;
+  gallery: string[];
+}

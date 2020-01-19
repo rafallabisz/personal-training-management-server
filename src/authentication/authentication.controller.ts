@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import Controller from "../interfaces/controller.interface";
-import { CreateAccount, LogIn } from "./authentication.interface";
+import { CreateUser, LogIn } from "./authentication.interface";
 import AuthenticationService from "./authentication.service";
 
 class AuthenticationController implements Controller {
@@ -20,7 +20,7 @@ class AuthenticationController implements Controller {
 
   private registration = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const registerData: CreateAccount = req.body;
+      const registerData: CreateUser = req.body;
       const { cookie, user } = await this.authenticationService.register(registerData);
       res.setHeader("Set-Cookie", [cookie]);
       res.status(201).json(user);

@@ -48,6 +48,15 @@ class TrainerService {
       throw new UserNotFoundException(err.value);
     }
   };
+
+  public getTrainerById = async (trainerId: string) => {
+    try {
+      const trainer = await this.user.findById(trainerId).populate("offers comments");
+      return trainer;
+    } catch (err) {
+      throw new HttpException(500, err.value);
+    }
+  };
 }
 
 export default TrainerService;

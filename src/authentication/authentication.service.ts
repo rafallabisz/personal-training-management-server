@@ -6,7 +6,7 @@ import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatE
 import { Trainer } from "../trainer/trainer.interface";
 import TokenData from "../interfaces/tokenData.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken.interface";
-import { CreateAccount, LogIn } from "./authentication.interface";
+import { CreateUser, LogIn } from "./authentication.interface";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 import UserNotFoundException from "../exceptions/UserNotFoundException";
 
@@ -14,7 +14,7 @@ class AuthenticationService {
   private trainer = trainerModel;
   private user = userModel;
 
-  public register = async (registerData: CreateAccount) => {
+  public register = async (registerData: CreateUser) => {
     if (await this.trainer.findOne({ email: registerData.email })) {
       throw new UserWithThatEmailAlreadyExistsException(registerData.email);
     }
