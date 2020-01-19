@@ -5,6 +5,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import Controller from "./interfaces/controller.interface";
 import errorMiddleware from "./middleware/error.middleware";
+// import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "../swagger.json";
 
 class App {
   public app: express.Application;
@@ -20,6 +23,7 @@ class App {
 
   public listen() {
     const port = process.env.PORT || 5000;
+    this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     this.app.listen(port, () => {
       console.log(`App listening on the port ${port}`);
     });
