@@ -2,11 +2,84 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Personal training management API",
-    "description": "A description of your project",
+    "title": "Personal-training-management-API",
+    "description": "CRUD REST API",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "http://localhost:5000",
+  "basePath": "/swagger",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth users"
+    },
+    {
+      "name": "Trainer",
+      "description": "Operations about trainers"
+    },
+    {
+      "name": "User",
+      "description": "Operations about user"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": ["application/xml", "application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "isTrainer": {
+          "type": "boolean",
+          "default": "true"
+        },
+        "password": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
     }
   }
 }
