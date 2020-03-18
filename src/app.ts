@@ -8,6 +8,7 @@ import errorMiddleware from "./middleware/error.middleware";
 // import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "../swagger.json";
+import config from "../config";
 
 class App {
   public app: express.Application;
@@ -23,7 +24,7 @@ class App {
   }
 
   public listen() {
-    const port = process.env.PORT || 5000;
+    const port = config.port;
     this.app.listen(port, () => {
       console.log(`App listening on the port ${port}`);
     });
@@ -50,16 +51,15 @@ class App {
   }
 
   private connectToTheDatabase() {
-    // const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
     mongoose
-      .connect("mongodb://localhost/personal-traininig-management", {
+      .connect(config.databaseUri, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true,
         useFindAndModify: false
       })
       .then(db => console.log("DB is connected"))
-      .catch(err => console.log(err, "err"));
+      .catch(err => console.log(err, "Error in connecting with DB"));
   }
 }
 
